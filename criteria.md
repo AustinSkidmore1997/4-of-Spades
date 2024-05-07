@@ -18,3 +18,8 @@ As a pet owner, I want an app to track all of the tasks for each of my animals f
 
 -when i click add task 
 -then a modal or form is presented to add task name, time of when to do task, and a checkbox of if weather specific.
+
+-when i click save
+-then the task is added to the list with a check box
+
+

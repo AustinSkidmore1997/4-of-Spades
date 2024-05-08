@@ -21,8 +21,9 @@ petInfo.addEventListener("submit", (event) => {
 
 function getWeatherApi() {
     const weatherApi =  "https://api.weather.gov/alerts/active"
-fetch(requestUrl)
+fetch(weatherApi)
 .then(function (response) {
   return response.json();
 })
 }
+getWeatherApi();

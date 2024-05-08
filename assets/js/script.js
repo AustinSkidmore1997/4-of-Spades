@@ -18,3 +18,11 @@ petInfo.addEventListener("submit", (event) => {
     event.preventDefault();
     
 });
+
+function getWeatherApi() {
+    const weatherApi =  "https://api.weather.gov/alerts/active"
+fetch(requestUrl)
+.then(function (response) {
+  return response.json();
+})
+}

@@ -34,7 +34,7 @@ function getWeatherApi() {
         .then((result) => result.json())
         .then((json) => {
           //renderfunc(json);
-          console.log(json);
+          //console.log(json);
           const forecast = json.properties.forecast;
           fetch(`${forecast}`, {
             headers: {
@@ -44,6 +44,8 @@ function getWeatherApi() {
             .then((result) => result.json())
             .then((json) => {
               console.log(json);
+              let shortForecast = json.properties.periods[0].shortForecast;
+              console.log(shortForecast);
             }
             )
         });

@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body data-theme="dark">
+<body data-theme="forest" class="text-amber-700">
     <header>
         <h1>The Pet Checklist</h1>
     </header>
@@ -17,20 +17,23 @@
         <button id="petBtn" class="btn">Add Pet</button>
         <dialog id="petForm">
             <form id="petInfo" action="">
-                <label for="petName">Pet Name</label><br>
-                <input id="petName" type="text"><br>
+                <label class="text-amber-700" for="petName">Pet Name</label><br>
+                <input class="text-amber-700" id="petName" type="text"><br>
 
-                <label for="petAge">Pet Age</label><br>
-                <input id="petAge" type="number"><br>
+                <label class="text-amber-700" for="petAge">Pet Age</label><br>
+                <input class="text-amber-700" id="petAge" type="number"><br>
 
-                <label for="petType">Pet Type</label><br>
-                <input id="petType" type="text"><br>
+                <label class="text-amber-700" for="petType">Pet Type</label><br>
+                <input class="text-amber-700" id="petType" type="text"><br>
 
-                <label for="petDescription">Description of Pet</label><br>
-                <textarea id="petDescription" cols="30" rows="10"></textarea><br><br>
+                <label class="text-amber-700" for="petDescription">Description of Pet</label><br>
+                <textarea class="text-amber-700" id="petDescription" cols="30" rows="10"></textarea><br><br>
 
-                <button type="submit" id="addPet" class="btn">Add Pet</button>
-                <button id="close" class="btn">Close</button>
+                <label class="text-amber-700" for="weatherCheck">Can do while raining?</label>
+                <input id="weatherCheck" type="checkbox"><br><br>
+
+                <button class="text-amber-700" type="submit" id="addPet">Add Pet</button>
+                <button class="text-amber-700" id="close">Close</button>
             </form>
         </dialog>
         <h2>Pets</h2>

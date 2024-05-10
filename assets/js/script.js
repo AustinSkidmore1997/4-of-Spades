@@ -3,7 +3,7 @@ const petBtn = document.querySelector("#petBtn");
 const petInfo = document.querySelector("#petInfo");
 const closeModal = document.querySelector("#close");
 
-
+let isRaining = false;
 
 petBtn.addEventListener("click", () => {
   petForm.showModal();
@@ -46,6 +46,12 @@ function getWeatherApi() {
               console.log(json);
               let shortForecast = json.properties.periods[0].shortForecast;
               console.log(shortForecast);
+              if (shortForecast.includes("Showers") || shortForecast.includes("Thunderstorms")) {
+                isRaining = true;
+              } else {
+                isRaining = false;
+              }
+              console.log(isRaining);
             }
             )
         });

@@ -3,6 +3,7 @@ const petBtn = document.querySelector("#petBtn");
 const petInfo = document.querySelector("#petInfo");
 const closeModal = document.querySelector("#close");
 
+<<<<<<< HEAD
 const petNameInput = document.getElementById('petName');
 const petAgeInput = document.getElementById('petAge');
 const petTypeInput = document.getElementById('petType');
@@ -10,6 +11,9 @@ const petDescriptionInput = document.getElementById('petDescription');
 
 const petCardEl = $('.petCard')
 
+=======
+let isRaining = false;
+>>>>>>> 17a536e1b996e34aa96edd32932c6cc3f9e703a9
 
 petBtn.addEventListener("click", () => {
   petForm.showModal();
@@ -83,6 +87,12 @@ function getWeatherApi() {
               console.log(json);
               let shortForecast = json.properties.periods[0].shortForecast;
               console.log(shortForecast);
+              if (shortForecast.includes("Showers") || shortForecast.includes("Thunderstorms")) {
+                isRaining = true;
+              } else {
+                isRaining = false;
+              }
+              console.log(isRaining);
             }
             )
         });

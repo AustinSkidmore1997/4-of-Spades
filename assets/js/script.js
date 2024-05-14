@@ -85,6 +85,21 @@ function renderTasks() {
 
 }
 
+function startTimer() {
+  const startTime = dayjs();
+  const endTime = startTime.add(24, 'hour');
+  updateTimerUI(endTime.diff(startTime, 'second'));
+  const timerInterval = setInterval(() => {
+    const currentTime = dayjs();
+    const remainingTime = endTime.diff(currentTime, 'second');
+    updateTimerUI(remainingTime);
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      console.log('Timer expired!');
+    }
+  }, 1000);
+}
+
 function getWeatherApi() {
   navigator.geolocation.getCurrentPosition(
     function (position) {

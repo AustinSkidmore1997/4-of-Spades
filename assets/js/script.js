@@ -3,6 +3,8 @@ const petBtn = document.querySelector("#petBtn");
 const petInfo = document.querySelector("#petInfo");
 const closeModal = document.querySelector("#close");
 
+const petTask = document.querySelector("#petTask");
+
 const petNameInput = document.getElementById('petName');
 const petAgeInput = document.getElementById('petAge');
 const petTypeInput = document.getElementById('petType');
@@ -22,14 +24,15 @@ closeModal.addEventListener("click", (event) => {
 });
 
 petInfo.addEventListener("submit", (event) => {
-
   event.preventDefault();
   savePetInfo();
 
 
   petForm.close();
-  
+
 });
+
+
 
 const cardArray = [];
 console.log(cardArray);
@@ -61,8 +64,8 @@ function renderPetCards() {
     $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
-    $(`<button id="addTask">`).text('Add Task').addClass("btn btn-primary hidden").appendTo(`#${petCard.petName}`);
-
+    $(`<details id="${petCard.petName}Details">`).text('Tasks').appendTo(`#${petCard.petName}`);
+    $(`<button id="addNewTask">`).text('Add Task').addClass("btn btn-primary").appendTo(`#${petCard.petName}Details`);
   }
 
 }
@@ -82,9 +85,6 @@ function startTimer() {
   }, 1000);
 }
 
-function renderTasks() {
-
-}
 
 function startTimer() {
   const startTime = dayjs();
@@ -152,6 +152,45 @@ if (cardArray) {
 };
 
 
+const addTaskBtn = document.querySelector("#addNewTask");
+const addTaskSubmit = document.querySelector("#addTask");
+const newTask = document.querySelector("#task");
+const taskTime = document.querySelector("#taskTime");
+
+let taskMap = JSON.parse(localStorage.getItem('taskMap'));
+const tasks = [];
+function addTask() {
+  const task = {
+    taskName: newTask.value,
+    taskTime: taskTime.value,
+  }
+  taskMap.tasks.push(task);
+
+  localStorage.setItem(`newTask`, JSON.stringify(tasks));
+  petTask.close();
+  //renderTasks()
+}
+
+function renderTasks() {
+
+
+}
+
+
+
+console.log(addTaskBtn);
+addTaskBtn.addEventListener("click", () => {
+  petTask.showModal();
+
+});
+
+addTaskSubmit.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  addTask();
+});
+
+console.log(task.taskName);
 /* function init() {
   renderPetCard();
 }

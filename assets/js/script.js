@@ -59,13 +59,13 @@ function renderPetCards() {
   petList.empty();
   for (petCard of petCardArray) {
 
-    $(`<div id="${petCard.petName}">`).addClass("card card-primary").appendTo(petList);
+    $(`<div id="${petCard.petName}">`).addClass("card bordered w-96 bg-primary text-primary-content card-primary").appendTo(petList);
     $(`<h2>`).text(`${petCard.petName}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
     $(`<details id="${petCard.petName}Details">`).text('Tasks').appendTo(`#${petCard.petName}`);
-    $(`<button id="addNewTask">`).text('Add Task').addClass("addNewTask btn btn-primary").appendTo(`#${petCard.petName}Details`);
+    $(`<button id="addNewTask">`).text('Add Task').addClass("addNewTask btn btn-secondary").appendTo(`#${petCard.petName}Details`);
   }
 
 }

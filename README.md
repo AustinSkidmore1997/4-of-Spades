@@ -8,6 +8,8 @@ for things we've learned in class. This is made to reduce miscommunication on pe
 
 Click add pet, fill out the information on the pet, then click the add task and what needs to be done.
 
+https://austinskidmore1997.github.io/4-of-Spades/
+
 ## Credits
 Collaborators:
 

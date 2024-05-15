@@ -2,13 +2,9 @@ const petForm = document.querySelector("#petForm");
 const petBtn = document.querySelector("#petBtn");
 const petInfo = document.querySelector("#petInfo");
 const closeModal = document.querySelector("#close");
+const petList = document.getElementById('petList');
 
-const petNameInput = document.getElementById('petName');
-const petAgeInput = document.getElementById('petAge');
-const petTypeInput = document.getElementById('petType');
-const petDescriptionInput = document.getElementById('petDescription');
-
-const petCardEl = $('.petCard')
+const petsArray = [];
 
 let isRaining = false;
 
@@ -22,40 +18,75 @@ closeModal.addEventListener("click", (event) => {
 });
 
 petInfo.addEventListener("submit", (event) => {
+
   event.preventDefault();
   savePetInfo();
-  renderPetCard();
+  renderPetCards();
   petForm.close();
-
+  
 });
 
-
 function savePetInfo() {
-  const petName = petNameInput.value;
-  const petAge = petAgeInput.value;
-  const petType = petTypeInput.value;
-  const petDescription = petDescriptionInput.value;
-  localStorage.setItem('Pet Name', JSON.stringify(petName));
-  localStorage.setItem('Pet Age', JSON.stringify(petAge));
-  localStorage.setItem('Pet Type', JSON.stringify(petType));
-  localStorage.setItem('Pet Description', JSON.stringify(petDescription));
+  const petNameInput = document.getElementById('petName');
+  const petAgeInput = document.getElementById('petAge');
+  const petTypeInput = document.getElementById('petType');
+  const petDescriptionInput = document.getElementById('petDescription');
+
+  
+  const pet = {
+    name: petNameInput.value,
+    age: petAgeInput.value,
+    type: petTypeInput.value,
+    description: petDescriptionInput.value,
+  };
+
+  petsArray.push(pet);
+  localStorage.setItem('pets', JSON.stringify(petsArray));
 }
 
-function renderPetCard() {
-  const petCardName = $('input[id="petName"]').val();
-  const petCardAge = $('input[id="petAge"]').val();
-  const petCardType = $('input[id="petType"]').val();
-  const petCardDescription = $('textarea[id="petDescription"]').val();
+// use for loop to go through array and get items for local storage
+  function renderPetCards() {
+    const petCardArray = JSON.parse(localStorage.getItem('pets'));
+    petList.empty();
+    for (petCard of petCardArray) {
+      $(`<div id="${petCard.petName}">`).addClass("card").appendTo(petList);
+      $(`<h2>`).text(`${petCard.petName}`).appendTo(`#${petCard.petName}`);
+      $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
+      $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
+      $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
+      $(`<button id="addTask">`).text('Add Task').addClass("btn btn-primary hidden").appendTo(`#${petCard.petName}`);
+    }
+  }
 
-  petCardEl.append(`<h2> Pet Name: ${petCardName}</h2>`);
-  petCardEl.append(`<h2> Pet Age: ${petCardAge}</h2>`);
-  petCardEl.append(`<h2> Pet Type: ${petCardType}</h2>`);
-  petCardEl.append(`<h2> Pet Description: ${petCardDescription}</h2>`);
-  $('input[id="petName"]').val(' ');
-  $('input[id="petAge"]').val(' ');
-  $('input[id="petType"]').val(' ');
-  $('input[id="petDescription"]').val(' ');
-}
+ /*  const petsList = JSON.parse(localStorage.getItem('pets'));
+  console.log(petsList);
+  for (pet of petsList) {
+  const petCardName = pet.name;
+  const petCardAge = pet.age;
+  const petCardType = pet.type;
+  const petCardDescription = pet.description;
+
+  const petCardEl = $('.petCard');
+  petCardEl.append(`<h2 id="pet-name"> Pet Name: ${petCardName}</h2>`);
+  petCardEl.append(`<h2 id="pet-age"> Pet Age: ${petCardAge}</h2>`);
+  petCardEl.append(`<h2 id="pet-type"> Pet Type: ${petCardType}</h2>`);
+  petCardEl.append(`<h2 id="pet-description"> Pet Description: ${petCardDescription}</h2>`);
+  } */
+
+  /* function renderPetCards() {
+    const petCardEl = $('.petCard');
+    const petCardName = $('input[id="petName"]').val();
+    const petCardAge = $('input[id="petAge"]').val();
+    const petCardType = $('input[id="petType"]').val();
+    const petCardDescription = $('textarea[id="petDescription"]').val();
+
+    petCardEl.append('<div class="petCardContainer"></div>');
+    const petCardContainerEl = $('.petCardContainer');
+    petCardContainerEl.append(`<h2> Pet Name: ${petCardName}</h2>`);
+    petCardContainerEl.append(`<h2> Pet Age: ${petCardAge}</h2>`);
+    petCardContainerEl.append(`<h2> Pet Type: ${petCardType}</h2>`);
+    petCardContainerEl.append(`<h2> Pet Description: ${petCardDescription}</h2>`);
+  } */
 
 function getWeatherApi() {
   navigator.geolocation.getCurrentPosition(
@@ -101,7 +132,4 @@ function getWeatherApi() {
 }
 getWeatherApi();
 
-/* function init() {
-  renderPetCard();
-}
-init(); */
+renderPetCards();

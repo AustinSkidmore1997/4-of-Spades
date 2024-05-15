@@ -59,13 +59,13 @@ function renderPetCards() {
   petList.empty();
   for (petCard of petCardArray) {
 
-    $(`<div id="${petCard.petName}">`).addClass("card").appendTo(petList);
+    $(`<div id="${petCard.petName}">`).addClass("card card-primary").appendTo(petList);
     $(`<h2>`).text(`${petCard.petName}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
     $(`<details id="${petCard.petName}Details">`).text('Tasks').appendTo(`#${petCard.petName}`);
-    $(`<button id="addNewTask">`).text('Add Task').addClass("btn btn-primary").appendTo(`#${petCard.petName}Details`);
+    $(`<button id="addNewTask">`).text('Add Task').addClass("addNewTask btn btn-primary").appendTo(`#${petCard.petName}Details`);
   }
 
 }
@@ -151,8 +151,8 @@ if (cardArray) {
 
 };
 
-
 const addTaskBtn = document.querySelector("#addNewTask");
+const addTaskAll = document.querySelectorAll("#addNewTask");
 const addTaskSubmit = document.querySelector("#addTask");
 const newTask = document.querySelector("#task");
 const taskTime = document.querySelector("#taskTime");
@@ -161,36 +161,70 @@ let taskMap = JSON.parse(localStorage.getItem('taskMap'));
 const tasks = [];
 function addTask() {
   const task = {
+    taskId: localStorage.getItem("taskId"),
     taskName: newTask.value,
     taskTime: taskTime.value,
   }
-  taskMap.tasks.push(task);
+  tasks.push(task);
 
   localStorage.setItem(`newTask`, JSON.stringify(tasks));
   petTask.close();
-  //renderTasks()
+  renderTasks()
 }
 
 function renderTasks() {
-
-
+  for (task of tasks)
+    i = 0;
+  i++;
+  $(`<input type="checkbox" id="${i}">`).appendTo(`#${task.taskId}`);
+  $(`<label for="${i}">`).text(`${task.taskName} ${task.taskTime}`).appendTo(`#${task.taskId}`);
 }
 
-
-
-console.log(addTaskBtn);
-addTaskBtn.addEventListener("click", () => {
-  petTask.showModal();
-
-});
+for (let i = 0; i < addTaskAll.length; i++) {
+  addTaskAll[i].addEventListener("click", function () {
+    localStorage.setItem("taskId", $(this).parent().attr('id'));
+    petTask.showModal();
+  });
+}
 
 addTaskSubmit.addEventListener("submit", (event) => {
   event.preventDefault();
-
   addTask();
+
 });
 
 console.log(task.taskName);
+
+// function storePetTask(petName, taskName, taskTime) {
+//   let taskMap = JSON.parse(localStorage.getItem("taskMap"));
+//   if (!taskMap) {
+//     taskMap = {};
+//   }
+//   if (!taskMap[petName]) {
+//     taskMap[petName] = {};
+//     taskMap[petName].tasks = [];
+//   }
+//   const task = {
+//     taskName: newTask.value,
+//     taskTime: taskTime.value,
+//   };
+//   taskMap[petName].tasks.push(task);
+//   localStorage.setItem("taskMap", JSON.stringify(taskMap));
+// }
+
+// function getPetTasks() {
+//   let taskMap = JSON.parse(localStorage.getItem("taskMap"));
+//   if (!taskMap) {
+//     console.error("No task map found!");
+//     return {};
+//   }
+
+//   for (let [petName, dogTasks] of Object.entries(taskMap)) {
+//     for (task of dogTasks.tasks) {
+//       console.log(task);
+//     }
+//   }
+// }
 /* function init() {
   renderPetCard();
 }

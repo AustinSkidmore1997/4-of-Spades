@@ -9,18 +9,19 @@ for things we've learned in class. This is made to reduce miscommunication on pe
 Click add pet, fill out the information on the pet, then click the add task and what needs to be done.
 
 ## Credits
+Collaborators:
 
 Austin Skidmore  GitHub: AustinSkidmore1997
+
 Noah Calderwood  GitHub: NoahCalderwood
-Carson Dennings  GitHub:
-Jorge B.  GitHub:
 
+Carson Denning  GitHub:  denningcars
 
-List your collaborators, if any, with links to their GitHub profiles.
+Jorge Baldovinos GitHub: Jorge-Baldovinos
 
 If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
 
-If you followed tutorials, include links to those here as well.
+
 
 ## License
 

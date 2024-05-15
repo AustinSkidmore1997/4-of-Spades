@@ -7,8 +7,8 @@ const petNameInput = document.getElementById('petName');
 const petAgeInput = document.getElementById('petAge');
 const petTypeInput = document.getElementById('petType');
 const petDescriptionInput = document.getElementById('petDescription');
+const petList = $('#petsList');
 
-const petCardEl = $('.petCard')
 
 let isRaining = false;
 
@@ -24,37 +24,80 @@ closeModal.addEventListener("click", (event) => {
 petInfo.addEventListener("submit", (event) => {
   event.preventDefault();
   savePetInfo();
-  renderPetCard();
+
+
   petForm.close();
 
 });
 
-
+const cardArray = [];
+console.log(cardArray);
 function savePetInfo() {
-  const petName = petNameInput.value;
-  const petAge = petAgeInput.value;
-  const petType = petTypeInput.value;
-  const petDescription = petDescriptionInput.value;
-  localStorage.setItem('Pet Name', JSON.stringify(petName));
-  localStorage.setItem('Pet Age', JSON.stringify(petAge));
-  localStorage.setItem('Pet Type', JSON.stringify(petType));
-  localStorage.setItem('Pet Description', JSON.stringify(petDescription));
+  const petCard = {
+    petName: petNameInput.value,
+    petAge: petAgeInput.value,
+    petType: petTypeInput.value,
+    petDescription: petDescriptionInput.value,
+  }
+  cardArray.push(petCard);
+
+  localStorage.setItem('petCard', JSON.stringify(cardArray));
+
+  renderPetCards();
+  petNameInput.value = "";
+  petAgeInput.value = "";
+  petTypeInput.value = "";
+  petDescriptionInput.value = "";
 }
 
-function renderPetCard() {
-  const petCardName = $('input[id="petName"]').val();
-  const petCardAge = $('input[id="petAge"]').val();
-  const petCardType = $('input[id="petType"]').val();
-  const petCardDescription = $('textarea[id="petDescription"]').val();
+function renderPetCards() {
+  const petCardArray = JSON.parse(localStorage.getItem('petCard'));
+  petList.empty();
+  for (petCard of petCardArray) {
 
-  petCardEl.append(`<h2> Pet Name: ${petCardName}</h2>`);
-  petCardEl.append(`<h2> Pet Age: ${petCardAge}</h2>`);
-  petCardEl.append(`<h2> Pet Type: ${petCardType}</h2>`);
-  petCardEl.append(`<h2> Pet Description: ${petCardDescription}</h2>`);
-  $('input[id="petName"]').val(' ');
-  $('input[id="petAge"]').val(' ');
-  $('input[id="petType"]').val(' ');
-  $('input[id="petDescription"]').val(' ');
+    $(`<div id="${petCard.petName}">`).addClass("card").appendTo(petList);
+    $(`<h2>`).text(`${petCard.petName}`).appendTo(`#${petCard.petName}`);
+    $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
+    $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
+    $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
+    $(`<button id="addTask">`).text('Add Task').addClass("btn btn-primary hidden").appendTo(`#${petCard.petName}`);
+
+  }
+
+}
+
+function startTimer() {
+  const startTime = dayjs();
+  const endTime = startTime.add(24, 'hour');
+  updateTimerUI(endTime.diff(startTime, 'second'));
+  const timerInterval = setInterval(() => {
+    const currentTime = dayjs();
+    const remainingTime = endTime.diff(currentTime, 'second');
+    updateTimerUI(remainingTime);
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      console.log('Timer expired!');
+    }
+  }, 1000);
+}
+
+function renderTasks() {
+
+}
+
+function startTimer() {
+  const startTime = dayjs();
+  const endTime = startTime.add(24, 'hour');
+  updateTimerUI(endTime.diff(startTime, 'second'));
+  const timerInterval = setInterval(() => {
+    const currentTime = dayjs();
+    const remainingTime = endTime.diff(currentTime, 'second');
+    updateTimerUI(remainingTime);
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      console.log('Timer expired!');
+    }
+  }, 1000);
 }
 
 function getWeatherApi() {
@@ -100,6 +143,13 @@ function getWeatherApi() {
   );
 }
 getWeatherApi();
+
+if (cardArray) {
+  renderPetCards()
+} else {
+
+};
+
 
 /* function init() {
   renderPetCard();

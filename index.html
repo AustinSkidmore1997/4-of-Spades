@@ -7,6 +7,7 @@
     <title>Pet Checklist</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.11/dayjs.min.js"></script>
 </head>
 
 <body data-theme="forest" class="text-amber-700">
@@ -29,16 +30,25 @@
                 <label class="text-amber-700" for="petDescription">Description of Pet</label><br>
                 <textarea class="text-amber-700" id="petDescription" cols="30" rows="10"></textarea><br><br>
 
-                <label class="text-amber-700" for="weatherCheck">Can do while raining?</label>
-                <input id="weatherCheck" type="checkbox"><br><br>
-
                 <button class="btn btn-primary" type="submit" id="addPet">Add Pet</button>
                 <button class="btn btn-primary" id="close">Close</button>
             </form>
         </dialog>
-        <h2>Pets</h2>
-        <ul id="petsList">
 
+        <dialog id="petTask">
+            <form action="">
+                <label for="task">Task</label>
+                <input type="text" id="task"><br>
+                <label for="taskTime"></label>
+                <input type="time" name="" id="taskTime"><br><br>
+                <button type="submit" id="addTask">Submit</button>
+            </form>
+        </dialog>
+
+        <h2>Pets</h2>
+        <section id="petsList">
+
+        </section>
         </ul>
 
         <div class="card w-96 bg-primary text-primary-content">

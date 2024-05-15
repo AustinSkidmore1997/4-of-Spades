@@ -55,7 +55,7 @@ function renderPetCards() {
   petList.empty();
   for (petCard of petCardArray) {
 
-    $(`<div id="${petCard.petName}">`).addClass("card").appendTo(petList);
+    $(`<div id="${petCard.petName}">`).addClass("card w-96 bg-primary text-primary-content").appendTo(petList);
     $(`<h2>`).text(`${petCard.petName}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);

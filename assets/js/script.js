@@ -65,7 +65,7 @@ function renderPetCards() {
     $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
     $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
     $(`<details id="${petCard.petName}Details">`).text('Tasks').appendTo(`#${petCard.petName}`);
-    $(`<button id="addNewTask">`).text('Add Task').addClass("btn btn-primary").appendTo(`#${petCard.petName}Details`);
+    $(`<button id="addNewTask">`).text('Add Task').addClass("btn btn-secondary").appendTo(`#${petCard.petName}Details`);
   }
 
 }

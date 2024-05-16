@@ -97,20 +97,7 @@ function startTimer() {
 }
 
 
-function startTimer() {
-  const startTime = dayjs();
-  const endTime = startTime.add(24, 'hour');
-  updateTimerUI(endTime.diff(startTime, 'second'));
-  const timerInterval = setInterval(() => {
-    const currentTime = dayjs();
-    const remainingTime = endTime.diff(currentTime, 'second');
-    updateTimerUI(remainingTime);
-    if (remainingTime <= 0) {
-      clearInterval(timerInterval);
-      console.log('Timer expired!');
-    }
-  }, 1000);
-}
+
 
 function getWeatherApi() {
   navigator.geolocation.getCurrentPosition(
@@ -190,15 +177,23 @@ function addTask() {
 }
 
 function renderOnLoad() {
+
   let tasks = JSON.parse(localStorage.getItem("newTask"));
   if (!tasks) {
     tasks = {};
   }
   for (let i = 0; i < tasks.length; i++) {
+    const currentTime = dayjs();
+    console.log(tasks[i].taskTime);
+    const timeArray = tasks[i].taskTime.split(':');
+
+    const endTime = dayjs().set('hour', timeArray[0]).set('minute', timeArray[1]);
+    const remainingTime = endTime.diff(currentTime, 'minute');
+    console.log(remainingTime);
     if (!isRaining) {
       $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
       $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);
-      $(`<label for="${i}">`).addClass("m-2").text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}${i}`);
+      $(`<label for="${i}">`).addClass(`m-2 ${remainingTime < 0 ? 'bg-warning' : ''}`).text(`${tasks[i].taskName} ${tasks[i].taskTime} R${remainingTime}`).appendTo(`#${tasks[i].taskId}${i}`);
     } else if (isRaining && rainCheck) {
       $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
       $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);
@@ -221,6 +216,20 @@ function renderTasks() {
   //   $(`<input type="checkbox" id="${i}">`).appendTo(`#${task.taskId}`);
   //   $(`<label for="${i}">`).text(`${task.taskName} ${task.taskTime}`).appendTo(`#${task.taskId}`);
   // }
+  // function startTimer() {
+  //   const startTime = dayjs();
+  //   const endTime = startTime.add(24, 'hour');
+  //   updateTimerUI(endTime.diff(startTime, 'second'));
+  //   const timerInterval = setInterval(() => {
+  //     const currentTime = dayjs();
+  //     const remainingTime = endTime.diff(currentTime, 'second');
+  //     updateTimerUI(remainingTime);
+  //     if (remainingTime <= 0) {
+  //       clearInterval(timerInterval);
+  //       console.log('Timer expired!');
+  //     }
+  //   }, 1000);
+  // }
   let tasks = JSON.parse(localStorage.getItem("newTask"));
   if (!tasks) {
     tasks = {};
@@ -232,6 +241,7 @@ function renderTasks() {
   }
 
   for (let i = 0; i < tasks.length; i++) {
+
     if (!isRaining) {
       $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
       $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);

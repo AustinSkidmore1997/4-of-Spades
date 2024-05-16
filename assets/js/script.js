@@ -186,7 +186,7 @@ function addTask() {
 
   localStorage.setItem(`newTask`, JSON.stringify(tasks));
   petTask.close();
-  renderTasks()
+  renderTasks();
 }
 
 function renderOnLoad() {
@@ -206,10 +206,14 @@ function renderOnLoad() {
     } else {
 
     }
-
+    for (let i = 0; i < addTaskAll.length; i++) {
+      addTaskAll[i].addEventListener("click", function () {
+        localStorage.setItem("taskId", $(this).parent().attr('id'));
+        petTask.showModal();
+      });
+    }
   }
 }
-
 function renderTasks() {
   // for (task of tasks) {
   //   i = 0;
@@ -239,15 +243,16 @@ function renderTasks() {
     } else {
 
     }
+    for (let i = 0; i < addTaskAll.length; i++) {
+      addTaskAll[i].addEventListener("click", function () {
+        localStorage.setItem("taskId", $(this).parent().attr('id'));
+        petTask.showModal();
+      });
+    }
   }
 }
 
-for (let i = 0; i < addTaskAll.length; i++) {
-  addTaskAll[i].addEventListener("click", function () {
-    localStorage.setItem("taskId", $(this).parent().attr('id'));
-    petTask.showModal();
-  });
-}
+
 
 addTaskSubmit.addEventListener("submit", (event) => {
   event.preventDefault();

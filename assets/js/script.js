@@ -37,6 +37,10 @@ petInfo.addEventListener("submit", (event) => {
 const cardArray = [];
 console.log(cardArray);
 function savePetInfo() {
+  let cardArray = JSON.parse(localStorage.getItem(`petCard`))
+  if (!cardArray) {
+    cardArray = [];
+  }
   const petCard = {
     petName: petNameInput.value,
     petAge: petAgeInput.value,
@@ -147,6 +151,7 @@ getWeatherApi();
 
 if (cardArray) {
   renderPetCards()
+
 } else {
 
 };
@@ -157,9 +162,13 @@ const addTaskSubmit = document.querySelector("#addTask");
 const newTask = document.querySelector("#task");
 const taskTime = document.querySelector("#taskTime");
 
-let taskMap = JSON.parse(localStorage.getItem('taskMap'));
+
 const tasks = [];
 function addTask() {
+  let tasks = JSON.parse(localStorage.getItem(`newTask`))
+  if (!tasks) {
+    tasks = [];
+  }
   const task = {
     taskId: localStorage.getItem("taskId"),
     taskName: newTask.value,
@@ -172,12 +181,38 @@ function addTask() {
   renderTasks()
 }
 
+function renderOnLoad() {
+  let tasks = JSON.parse(localStorage.getItem("newTask"));
+  if (!tasks) {
+    tasks = {};
+  }
+  for (let i = 0; i < tasks.length; i++) {
+    $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}`);
+    $(`<label for="${i}">`).text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}`);
+  }
+}
+
 function renderTasks() {
-  for (task of tasks)
-    i = 0;
-  i++;
-  $(`<input type="checkbox" id="${i}">`).appendTo(`#${task.taskId}`);
-  $(`<label for="${i}">`).text(`${task.taskName} ${task.taskTime}`).appendTo(`#${task.taskId}`);
+  // for (task of tasks) {
+  //   i = 0;
+  //   i++;
+  //   $(`<input type="checkbox" id="${i}">`).appendTo(`#${task.taskId}`);
+  //   $(`<label for="${i}">`).text(`${task.taskName} ${task.taskTime}`).appendTo(`#${task.taskId}`);
+  // }
+  let tasks = JSON.parse(localStorage.getItem("newTask"));
+  if (!tasks) {
+    tasks = {};
+  }
+
+  for (let i = 0; i < tasks.length; i++) {
+    let clearElement = $(`#${tasks[i].taskId}`)
+    clearElement.empty();
+  }
+
+  for (let i = 0; i < tasks.length; i++) {
+    $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}`);
+    $(`<label for="${i}">`).text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}`);
+  }
 }
 
 for (let i = 0; i < addTaskAll.length; i++) {
@@ -190,9 +225,9 @@ for (let i = 0; i < addTaskAll.length; i++) {
 addTaskSubmit.addEventListener("submit", (event) => {
   event.preventDefault();
   addTask();
-
+  renderTasks();
 });
-
+renderOnLoad();
 console.log(task.taskName);
 
 // function storePetTask(petName, taskName, taskTime) {

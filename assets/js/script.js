@@ -2,6 +2,7 @@ const petForm = document.querySelector("#petForm");
 const petBtn = document.querySelector("#petBtn");
 const petInfo = document.querySelector("#petInfo");
 const closeModal = document.querySelector("#close");
+const closeTask = document.querySelector("#closeTask");
 
 const petTask = document.querySelector("#petTask");
 
@@ -21,6 +22,11 @@ petBtn.addEventListener("click", () => {
 closeModal.addEventListener("click", (event) => {
   event.preventDefault();
   petForm.close();
+});
+
+closeTask.addEventListener("click", (event) => {
+  event.preventDefault();
+  petTask.close();
 });
 
 petInfo.addEventListener("submit", (event) => {
@@ -63,13 +69,14 @@ function renderPetCards() {
   petList.empty();
   for (petCard of petCardArray) {
 
-    $(`<div id="${petCard.petName}">`).addClass("card bordered w-96 bg-primary text-primary-content card-primary").appendTo(petList);
-    $(`<h2>`).text(`${petCard.petName}`).appendTo(`#${petCard.petName}`);
-    $(`<p>`).text(`${petCard.petAge}`).appendTo(`#${petCard.petName}`);
-    $(`<p>`).text(`${petCard.petType}`).appendTo(`#${petCard.petName}`);
-    $(`<p>`).text(`${petCard.petDescription}`).appendTo(`#${petCard.petName}`);
-    $(`<details id="${petCard.petName}Details">`).text('Tasks').appendTo(`#${petCard.petName}`);
-    $(`<button id="addNewTask">`).text('Add Task').addClass("addNewTask btn btn-secondary").appendTo(`#${petCard.petName}Details`);
+    $(`<div id="${petCard.petName}">`).addClass("card bordered block m-1 p-2 w-96 bg-primary text-primary-content card-primary").appendTo(petList);
+    $(`<h2>`).text(`${petCard.petName}`).addClass("block text-2xl font-bold").appendTo(`#${petCard.petName}`);
+    $(`<p>`).text(`Age: ${petCard.petAge}`).addClass("block").appendTo(`#${petCard.petName}`);
+    $(`<p>`).text(`Pet Type: ${petCard.petType}`).addClass("block").appendTo(`#${petCard.petName}`);
+    $(`<p>`).text(`Description: ${petCard.petDescription}`).addClass("block").appendTo(`#${petCard.petName}`);
+    $(`<details id="${petCard.petName}Details">`).addClass("block text-lg").appendTo(`#${petCard.petName}`);
+    $(`<summary>`).addClass('text-neutral').text('Tasks').appendTo(`#${petCard.petName}Details`);
+    $(`<button id="addNewTask">`).text('Add Task').addClass("m-2 block addNewTask btn btn-secondary border-black").appendTo(`#${petCard.petName}Details`);
   }
 
 }
@@ -161,7 +168,7 @@ const addTaskAll = document.querySelectorAll("#addNewTask");
 const addTaskSubmit = document.querySelector("#addTask");
 const newTask = document.querySelector("#task");
 const taskTime = document.querySelector("#taskTime");
-
+const rainCheck = document.querySelector("#isRaining");
 
 const tasks = [];
 function addTask() {
@@ -173,6 +180,7 @@ function addTask() {
     taskId: localStorage.getItem("taskId"),
     taskName: newTask.value,
     taskTime: taskTime.value,
+    rainCheck: rainCheck.value,
   }
   tasks.push(task);
 
@@ -187,8 +195,18 @@ function renderOnLoad() {
     tasks = {};
   }
   for (let i = 0; i < tasks.length; i++) {
-    $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}`);
-    $(`<label for="${i}">`).text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}`);
+    if (!isRaining) {
+      $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
+      $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);
+      $(`<label for="${i}">`).addClass("m-2").text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}${i}`);
+    } else if (isRaining && rainCheck) {
+      $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
+      $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);
+      $(`<label for="${i}">`).addClass("m-2").text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}${i}`);
+    } else {
+
+    }
+
   }
 }
 
@@ -210,8 +228,17 @@ function renderTasks() {
   }
 
   for (let i = 0; i < tasks.length; i++) {
-    $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}`);
-    $(`<label for="${i}">`).text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}`);
+    if (!isRaining) {
+      $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
+      $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);
+      $(`<label for="${i}">`).addClass("m-2").text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}${i}`);
+    } else if (isRaining && rainCheck) {
+      $(`<div id="${tasks[i].taskId}${i}">`).appendTo(`#${tasks[i].taskId}`);
+      $(`<input type="checkbox" id="${i}">`).appendTo(`#${tasks[i].taskId}${i}`);
+      $(`<label for="${i}">`).addClass("m-2").text(`${tasks[i].taskName} ${tasks[i].taskTime}`).appendTo(`#${tasks[i].taskId}${i}`);
+    } else {
+
+    }
   }
 }
 

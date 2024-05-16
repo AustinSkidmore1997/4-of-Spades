@@ -4,6 +4,9 @@
 This is an application used for people taking care of pets when owner is out of town. We learned teamwork and organization as well as many new applications 
 for things we've learned in class. This is made to reduce miscommunication on pet needs.
 
+![Screenshot 2024-05-16 134914](https://github.com/AustinSkidmore1997/4-of-Spades/assets/76232069/33f0a632-f808-486a-9918-e1ed46512299)
+
+
 ## Usage
 
 Click add pet, fill out the information on the pet, then click the add task and what needs to be done.

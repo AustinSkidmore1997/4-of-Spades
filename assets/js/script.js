@@ -76,7 +76,20 @@ function renderPetCards() {
     $(`<p>`).text(`Description: ${petCard.petDescription}`).addClass("block").appendTo(`#${petCard.petName}`);
     $(`<details id="${petCard.petName}Details">`).addClass("block text-lg").appendTo(`#${petCard.petName}`);
     $(`<summary>`).addClass('text-neutral').text('Tasks').appendTo(`#${petCard.petName}Details`);
-    $(`<button id="addNewTask">`).text('Add Task').addClass("m-2 block addNewTask btn btn-secondary border-black").appendTo(`#${petCard.petName}Details`);
+    $(`<button id="addNewTask">`)
+      .text('Add Task')
+      .addClass("m-2 block addNewTask btn btn-secondary border-black")
+      .on('click', function () {
+        localStorage.setItem("taskId", $(this).parent().attr('id'));
+        petTask.showModal();
+      })
+      .appendTo(`#${petCard.petName}Details`);
+
+    // addTaskBtn.addEventListener("click", function () {
+    //   localStorage.setItem("taskId", $(this).parent().attr('id'));
+    //   petTask.showModal();
+    // });
+
   }
 
 }
@@ -170,7 +183,7 @@ function addTask() {
     rainCheck: rainCheck.value,
   }
   tasks.push(task);
-
+  console.log(tasks);
   localStorage.setItem(`newTask`, JSON.stringify(tasks));
   petTask.close();
   renderTasks();
@@ -180,7 +193,7 @@ function renderOnLoad() {
 
   let tasks = JSON.parse(localStorage.getItem("newTask"));
   if (!tasks) {
-    tasks = {};
+    tasks = [];
   }
   for (let i = 0; i < tasks.length; i++) {
     const currentTime = dayjs();
@@ -253,12 +266,7 @@ function renderTasks() {
     } else {
 
     }
-    for (let i = 0; i < addTaskAll.length; i++) {
-      addTaskAll[i].addEventListener("click", function () {
-        localStorage.setItem("taskId", $(this).parent().attr('id'));
-        petTask.showModal();
-      });
-    }
+
   }
 }
 
@@ -267,6 +275,7 @@ function renderTasks() {
 addTaskSubmit.addEventListener("submit", (event) => {
   event.preventDefault();
   addTask();
+  setTimeout(function () { }, 500);
   renderTasks();
 });
 renderOnLoad();

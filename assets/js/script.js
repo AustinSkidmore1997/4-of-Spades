@@ -271,7 +271,12 @@ addTaskSubmit.addEventListener("submit", (event) => {
 });
 renderOnLoad();
 console.log(task.taskName);
-
+for (let i = 0; i < addTaskAll.length; i++) {
+  addTaskAll[i].addEventListener("click", function () {
+    localStorage.setItem("taskId", $(this).parent().attr('id'));
+    petTask.showModal();
+  });
+}
 // function storePetTask(petName, taskName, taskTime) {
 //   let taskMap = JSON.parse(localStorage.getItem("taskMap"));
 //   if (!taskMap) {
